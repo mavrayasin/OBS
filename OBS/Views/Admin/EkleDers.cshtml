@@ -1,0 +1,41 @@
+﻿@model OBS.Models.Dersler
+@{
+    ViewBag.Title = "EkleDers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<br />
+<h2>Yeni Ders Ekleme Sayfası</h2>
+<br />
+@using (Html.BeginForm("EkleDers", "Admin", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.Label("Ders Adı",new {@class = "col-md-2 control-label" })
+    @Html.TextBoxFor(model => model.DersAdi, new { @class = "col-md-3", placeholder = "Ders adı giriniz" })
+
+    <br />
+    <br />
+    @Html.Label("Ders Kodu", new { @class = "col-md-2 control-label" })
+    @Html.TextBoxFor(model => model.DersKodu, new { @class = "col-md-3", placeholder = "Ders kodu giriniz" })
+
+    <br />
+    <br />
+    @Html.Label("Durum", new { @class = "col-md-2 control-label" })
+    @*@Html.TextBoxFor(model => model.Durum, new { @class = "form-control", placeholder = "Ders durumu giriniz" })*@
+    @Html.DropDownListFor(model => model.Durum, new List<SelectListItem>()
+                                           {
+                                               new SelectListItem() { Text = "Pasif", Value = "False"},
+                                               new SelectListItem() { Text = "Aktif", Value = "True" } }, new { @class = "col-md-3" })
+
+    <br />
+    <br />
+    @Html.Label("Kredi", new { @class = "col-md-2 control-label" })
+    @Html.TextBoxFor(model => model.Kredi, new { @class = "col-md-3", placeholder = "Ders kredi giriniz" })
+
+    <br />
+    <br />
+
+    <button class="btn btn-info">Ekle</button>
+</div>
+}

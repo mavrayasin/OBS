@@ -1,0 +1,67 @@
+﻿@using OBS.Models
+@model List<Dersler>
+@{
+    ViewBag.Title = "Dersler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Dersler</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tr>
+                <th style="width: 10px">ID</th>
+                <th>Ders Kodu</th>
+                <th>Ders Adı</th>
+                <th>Ders Durumu</th>
+                <th>Ders Kredi</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.DersKodu</td>
+                    <td>@item.DersAdi</td>
+                    <td>@if (item.Durum == true)
+                {
+                        <div>Aktif</div>
+                }else
+                {
+                    <div>Pasif</div>
+                }
+                        </td>
+          
+                    <td>@item.Kredi</td>
+                    <td><button class="btn btn-block btn-warning btn-xs" style="width:150px; height:30px" onclick="DerslerUpdate(@item.ID)">Güncelle</button></td>
+
+                </tr>
+            }
+
+            @*<a href="/Admin/EkleMufredat">Yeni Müfredat Ekle</a>*@
+            <button class="btn btn-block btn-success btn-xs" style="width:150px; height:30px" onclick="DerslerAdd()">Yeni Ders Ekle</button>
+        </table>
+    </div><!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
+</div><!-- /.box -->
+<script>
+
+    function DerslerUpdate(id) {
+        window.location.href = "/Admin/DuzenleDers?id=" + id;
+
+    }
+    function DerslerAdd() {
+        window.location.href = "/Admin/EkleDers";
+    }
+</script>

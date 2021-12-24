@@ -1,0 +1,56 @@
+﻿@using OBS.Models
+@model List<Mufredat>
+@{
+    ViewBag.Title = "Mufredat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Müfredatlar</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tr>
+                <th style="width: 10px">ID</th>
+                <th>Müfredat ADI</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.MufredatAdi</td>
+                    <td><button class="btn btn-block btn-warning btn-xs" style="width:150px; height:30px"onclick="MufredatUpdate(@item.ID)">Güncelle</button></td>
+
+                </tr>
+            }
+
+            @*<a href="/Admin/EkleMufredat">Yeni Müfredat Ekle</a>*@
+            <button class="btn btn-block btn-success btn-xs"style="width:150px; height:30px" onclick="MufredatAdd()">Yeni Müfredat Ekle</button>
+        </table>
+    </div><!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
+</div><!-- /.box -->
+<script>
+
+    function MufredatUpdate(id) {
+        window.location.href = "/Admin/DuzenleMufredat?id=" + id;
+
+    }
+    function MufredatAdd() {
+        window.location.href = "/Admin/EkleMufredat";
+    }
+</script>

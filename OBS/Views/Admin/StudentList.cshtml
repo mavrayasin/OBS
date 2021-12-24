@@ -1,0 +1,81 @@
+﻿@model List<OgrenciDetay>
+@{
+    ViewBag.Title = "StudentList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Kullanıcılar</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tr>
+                <th>TCNO</th>
+                <th>AD</th>
+                <th>SOYAD</th>
+                <th>DOĞUMYERİ</th>
+                <th>DOĞUM TARİHİ</th>
+                <th>İLETİŞİM Adres</th>
+                <th>İLETİŞİM İl</th>
+                <th>İLETİŞİM İlçe</th>
+                <th>İLETİŞİM Email</th>
+                <th>İLETİŞİM Gsm</th>
+                <th>Öğrenci No</th>
+                <th>Mufredat Adı</th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.TcNo</td>
+                    <td>@item.Ad</td>
+                    <td>@item.Soyad</td>
+                    <td>@item.DogumYeri</td>
+                    <td>@item.DogumTarihi</td>
+                    <td>@item.Adres</td>
+                    <td>@item.Il</td>
+                    <td>@item.Ilce</td>
+                    <td>@item.Email</td>
+                    <td>@item.GSM</td>
+                    <td>@item.OgrenciNo</td>
+                    <td>@item.MufredatAdi</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">İşlemler =></button>
+                            <div class="dropdown-menu" style="padding:0 !important;" role="menu" tabindex="0" aria-hidden="true">
+                                <button class="btn btn-default dropdown-item" style="background-color: #28a745 !important;" onclick="StudentUpdate('@item.OgrenciID')">Güncelle</button>
+                                <button class="btn btn-default dropdown-item" style="background-color: #ffff40 !important;" onclick="DersDetay('@item.OgrenciID')">Ders Detay</button>
+                               
+                            </div>
+                        </div>
+                    </td>
+                
+                </tr>
+            }
+            <button class="btn btn-block btn-success btn-xs" style="width:150px; height:30px" onclick="OgrenciAdd()">Yeni Öğrenci Ekle</button>
+        </table>
+    </div><!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">&laquo;</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">&raquo;</a></li>
+        </ul>
+    </div>
+</div><!-- /.box -->
+<script>
+    function StudentUpdate(id) {
+        window.location.href = "/Admin/UpdateStudent?OgrenciId=" + id;
+
+    }
+    function OgrenciAdd() {
+        window.location.href = "/Admin/AddStudent";
+    }
+    function DersDetay(id) {
+        window.location.href = "/Admin/DersDetay?ogrid=" + id;
+    }
+</script>

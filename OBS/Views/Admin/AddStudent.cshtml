@@ -1,0 +1,125 @@
+﻿@model OgrenciDetay
+@{
+    ViewBag.Title = "Öğrenci Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddOgrenci</h2>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Öğrenci Ekle</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-box">
+                <h4 class="m-t-0 header-title"><b></b></h4>
+
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        @using (Html.BeginForm("AddStudent", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "formDosyaPost" }))
+                        {
+
+                            <div class="form-group row" id="MufredatDiv">
+                                <label class="col-md-2 control-label"> Bölüm </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(model => model.BolumID, Model.DDLBolumler, new { @class = "form-control searchable", @required = "required" })
+
+                                </div>
+                            </div>
+                            <div class="form-group row" id="MufredatDiv">
+                                <label class="col-md-2 control-label"> Müfredat </label>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(model => model.MufredatID, Model.DDLMufredat, new { @class = "form-control searchable", @required = "required" })
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Ad</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.Ad, new { @class = "form-control", placeholder = "Ad giriniz:", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Soyad</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.Soyad, new { @class = "form-control", placeholder = "Soyad giriniz:", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Tc Kimlik Numarası</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.TcNo, new { @class = "form-control", placeholder = "Tc Kimlik numarası giriniz:", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Doğum Yeri</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.DogumYeri, new { @class = "form-control", placeholder = "Doğum Yeri giriniz:", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Doğum Tarihi</label>
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(model => model.DogumTarihi, "{0:dd/MM/yyyy}", htmlAttributes: new { @class = "form-control", style = "width: 30%; max-width: 30%;", type = "date", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Öğrenci Giriş Sırası</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.OgrGirisNo, htmlAttributes: new { @class = "form-control", placeholder = "Ogrenci Giriş Sırası giriniz:", type = "number", maxlength = "3", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Adres</label>
+                                <div class="col-md-3">
+                                    @Html.TextAreaFor(model => model.Adres, 4, 200, htmlAttributes: new { @class = "form-control", style = "width: 100%; max-width: 100%;", placeholder = "Adres giriniz:", @required = "required" })
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">İl</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.Il, new { @class = "form-control", placeholder = "İl giriniz:", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">İlçe</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.Ilce, new { @class = "form-control", placeholder = "İlçe giriniz:", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Email</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email giriniz:", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label">Telefon Numarası</label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.GSM, new { @class = "form-control", placeholder = "Telefon numarası giriniz:", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-md-2 control-label"></label>
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 btn-sm" type="submit" data-placement="right" title="Add New Ogrenci"
+                                            style="font-size:15px">
+                                        Ekle
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

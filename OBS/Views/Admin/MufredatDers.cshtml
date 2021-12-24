@@ -1,0 +1,33 @@
+﻿@model OBS.Models.MufredatDersDetay
+@{
+    ViewBag.Title = "MufredatDers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MufredatDers</h2>
+@using (Html.BeginForm("MufredatDers", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "formDosyaPost" }))
+{
+    <div class="form-group row" id="MufredatDiv">
+        <label class="col-md-2 control-label"> Müfredat </label>
+        <div class="col-md-3">
+            @Html.DropDownListFor(model => model.MufredatID, Model.DDLMufredat, new { @class = "form-control searchable" })
+
+        </div>
+    </div>
+    <div class="form-group row" id="MufredatDiv">
+        <label class="col-md-2 control-label"> Ders </label>
+        <div class="col-md-3">
+            @Html.DropDownListFor(model => model.DersID, Model.DDLDers, new { @class = "form-control searchable" })
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            <button class="btn btn-primary btn-rounded w-md waves-effect waves-light m-b-5 btn-sm" type="submit" data-placement="right" title="Add New Ogrenci"
+                    style="font-size:15px">
+                Müfredat ders eşleştir
+            </button>
+        </div>
+    </div>
+}

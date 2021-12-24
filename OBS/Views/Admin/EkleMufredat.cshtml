@@ -1,0 +1,21 @@
+﻿@model OBS.Models.Mufredat
+@{
+    ViewBag.Title = "EkleMufredat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2>Yeni Müfredat Ekleme Sayfası</h2>
+<br />
+@using (Html.BeginForm("EkleMufredat", "Admin", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.Label("Müfredat Adı")
+        @Html.TextBoxFor(model => model.MufredatAdi, new { @class = "form-control" ,placeholder="Müfredat adı giriniz"})
+
+        <br />
+        <br />
+      
+        <button class="btn btn-info">Ekle</button>
+    </div>
+}

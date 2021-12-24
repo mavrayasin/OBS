@@ -1,0 +1,20 @@
+﻿@model OBS.Models.Mufredat
+@{
+    ViewBag.Title = "DuzenleMufredat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2>Müfredat Güncelleme Sayfası</h2>
+@using (Html.BeginForm("DuzenleMufredat", "Admin", FormMethod.Post))
+{
+    @Html.HiddenFor(model=>model.ID)
+    <div class="form-group">
+      
+        @Html.Label("Müfredat Adı")
+        @Html.TextBoxFor(model=>model.MufredatAdi, new { @class = "form-control" })
+        <br />
+        <br/>
+        <button class="btn btn-success">Güncelle</button>
+    </div>
+}

@@ -128,13 +128,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\PasswordOperations.cs" />
+    <Compile Include="Models\Bolumler.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DersKayit.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Dersler.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Fakulteler.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Iletisim.cs">
@@ -164,6 +172,7 @@
     <Compile Include="Models\Mufredat.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MufredatDersDetay.cs" />
     <Compile Include="Models\MufredatDersler.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -1184,12 +1193,23 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Mufredat.cshtml" />
-    <Content Include="Views\Admin\AddOgrenci.cshtml" />
+    <Content Include="Views\Admin\AddStudent.cshtml" />
     <Content Include="Views\Admin\EkleMufredat.cshtml" />
     <Content Include="Views\Admin\DuzenleMufredat.cshtml" />
     <Content Include="Views\Admin\Dersler.cshtml" />
     <Content Include="Views\Admin\DuzenleDers.cshtml" />
     <Content Include="Views\Admin\EkleDers.cshtml" />
+    <Content Include="Views\Admin\MufredatDers.cshtml" />
+    <Content Include="Views\Admin\MufredatDersList.cshtml" />
+    <Content Include="Views\Admin\StudentList.cshtml" />
+    <Content Include="Views\Admin\UpdateStudent.cshtml" />
+    <Content Include="Views\Shared\_StudentLayout.cshtml" />
+    <Content Include="Views\Student\KimlikInfo.cshtml" />
+    <Content Include="Views\Student\IletisimInfo.cshtml" />
+    <Content Include="Views\Student\DersKayit.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\UpdateIletisim.cshtml" />
+    <Content Include="Views\Student\OgrenciDers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1228,7 +1248,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51059</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44376/</IISUrl>
+          <IISUrl>https://localhost:44375/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
