@@ -1,0 +1,635 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bolumler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FakulteNo" Type="int" Nullable="false" />
+          <Property Name="BolumNo" Type="int" Nullable="false" />
+          <Property Name="BolumKodu" Type="varchar" MaxLength="5" />
+          <Property Name="BolumAd" Type="varchar" MaxLength="50" />
+          <Property Name="AktifPasif" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DersKayit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OgrenciID" Type="int" Nullable="false" />
+          <Property Name="DersID" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Dersler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DersKodu" Type="varchar" MaxLength="50" />
+          <Property Name="DersAdi" Type="varchar" MaxLength="50" />
+          <Property Name="Durum" Type="bit" Nullable="false" />
+          <Property Name="Kredi" Type="int" />
+        </EntityType>
+        <EntityType Name="Fakulteler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FakulteNo" Type="tinyint" Nullable="false" />
+          <Property Name="FakulteAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="AktifPasif" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Iletisim">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adres" Type="varchar" MaxLength="500" />
+          <Property Name="Il" Type="varchar" MaxLength="50" />
+          <Property Name="Ilce" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="GSM" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kimlik">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TcNo" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="50" />
+          <Property Name="Soyad" Type="varchar" MaxLength="50" />
+          <Property Name="DogumYeri" Type="varchar" MaxLength="50" />
+          <Property Name="DogumTarihi" Type="date" />
+          <Property Name="IletisimID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sifre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Tur" Type="bit" Nullable="false" />
+          <Property Name="KimlikID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mufredat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MufredatAdi" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MufredatDersler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MufredatID" Type="int" Nullable="false" />
+          <Property Name="DersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ogrenci">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OgrenciNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="KimlikID" Type="int" Nullable="false" />
+          <Property Name="MufredatID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DersKayit_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="1" />
+          <End Role="DersKayit" Type="Self.DersKayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DersKayit">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DersKayit_Ogrenci">
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="1" />
+          <End Role="DersKayit" Type="Self.DersKayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogrenci">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DersKayit">
+              <PropertyRef Name="OgrenciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kimlik_Iletisim">
+          <End Role="Iletisim" Type="Self.Iletisim" Multiplicity="1" />
+          <End Role="Kimlik" Type="Self.Kimlik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iletisim">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Kimlik">
+              <PropertyRef Name="IletisimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kullanicilar_Kimlik">
+          <End Role="Kimlik" Type="Self.Kimlik" Multiplicity="1" />
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kimlik">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Kullanicilar">
+              <PropertyRef Name="KimlikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MufredatDersler_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="1" />
+          <End Role="MufredatDersler" Type="Self.MufredatDersler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MufredatDersler">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MufredatDersler_Mufredat">
+          <End Role="Mufredat" Type="Self.Mufredat" Multiplicity="1" />
+          <End Role="MufredatDersler" Type="Self.MufredatDersler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mufredat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MufredatDersler">
+              <PropertyRef Name="MufredatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogrenci_Kimlik">
+          <End Role="Kimlik" Type="Self.Kimlik" Multiplicity="1" />
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kimlik">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ogrenci">
+              <PropertyRef Name="KimlikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogrenci_Mufredat">
+          <End Role="Mufredat" Type="Self.Mufredat" Multiplicity="1" />
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mufredat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ogrenci">
+              <PropertyRef Name="MufredatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Bolumler" EntityType="Self.Bolumler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DersKayit" EntityType="Self.DersKayit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dersler" EntityType="Self.Dersler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fakulteler" EntityType="Self.Fakulteler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Iletisim" EntityType="Self.Iletisim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kimlik" EntityType="Self.Kimlik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mufredat" EntityType="Self.Mufredat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MufredatDersler" EntityType="Self.MufredatDersler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ogrenci" EntityType="Self.Ogrenci" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DersKayit_Dersler" Association="Self.FK_DersKayit_Dersler">
+            <End Role="Dersler" EntitySet="Dersler" />
+            <End Role="DersKayit" EntitySet="DersKayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DersKayit_Ogrenci" Association="Self.FK_DersKayit_Ogrenci">
+            <End Role="Ogrenci" EntitySet="Ogrenci" />
+            <End Role="DersKayit" EntitySet="DersKayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kimlik_Iletisim" Association="Self.FK_Kimlik_Iletisim">
+            <End Role="Iletisim" EntitySet="Iletisim" />
+            <End Role="Kimlik" EntitySet="Kimlik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kullanicilar_Kimlik" Association="Self.FK_Kullanicilar_Kimlik">
+            <End Role="Kimlik" EntitySet="Kimlik" />
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MufredatDersler_Dersler" Association="Self.FK_MufredatDersler_Dersler">
+            <End Role="Dersler" EntitySet="Dersler" />
+            <End Role="MufredatDersler" EntitySet="MufredatDersler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MufredatDersler_Mufredat" Association="Self.FK_MufredatDersler_Mufredat">
+            <End Role="Mufredat" EntitySet="Mufredat" />
+            <End Role="MufredatDersler" EntitySet="MufredatDersler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogrenci_Kimlik" Association="Self.FK_Ogrenci_Kimlik">
+            <End Role="Kimlik" EntitySet="Kimlik" />
+            <End Role="Ogrenci" EntitySet="Ogrenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogrenci_Mufredat" Association="Self.FK_Ogrenci_Mufredat">
+            <End Role="Mufredat" EntitySet="Mufredat" />
+            <End Role="Ogrenci" EntitySet="Ogrenci" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DersKayit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OgrenciID" Type="Int32" Nullable="false" />
+          <Property Name="DersID" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Dersler" Relationship="Self.FK_DersKayit_Dersler" FromRole="DersKayit" ToRole="Dersler" />
+          <NavigationProperty Name="Ogrenci" Relationship="Self.FK_DersKayit_Ogrenci" FromRole="DersKayit" ToRole="Ogrenci" />
+        </EntityType>
+        <EntityType Name="Dersler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DersKodu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DersAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Durum" Type="Boolean" Nullable="false" />
+          <Property Name="Kredi" Type="Int32" />
+          <NavigationProperty Name="DersKayit" Relationship="Self.FK_DersKayit_Dersler" FromRole="Dersler" ToRole="DersKayit" />
+          <NavigationProperty Name="MufredatDersler" Relationship="Self.FK_MufredatDersler_Dersler" FromRole="Dersler" ToRole="MufredatDersler" />
+        </EntityType>
+        <EntityType Name="Iletisim">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adres" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Il" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ilce" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GSM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Kimlik" Relationship="Self.FK_Kimlik_Iletisim" FromRole="Iletisim" ToRole="Kimlik" />
+        </EntityType>
+        <EntityType Name="Kimlik">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TcNo" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DogumYeri" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DogumTarihi" Type="DateTime" Precision="0" />
+          <Property Name="IletisimID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Iletisim" Relationship="Self.FK_Kimlik_Iletisim" FromRole="Kimlik" ToRole="Iletisim" />
+          <NavigationProperty Name="Kullanicilar" Relationship="Self.FK_Kullanicilar_Kimlik" FromRole="Kimlik" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Ogrenci" Relationship="Self.FK_Ogrenci_Kimlik" FromRole="Kimlik" ToRole="Ogrenci" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tur" Type="Boolean" Nullable="false" />
+          <Property Name="KimlikID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kimlik" Relationship="Self.FK_Kullanicilar_Kimlik" FromRole="Kullanicilar" ToRole="Kimlik" />
+        </EntityType>
+        <EntityType Name="Mufredat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MufredatAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MufredatDersler" Relationship="Self.FK_MufredatDersler_Mufredat" FromRole="Mufredat" ToRole="MufredatDersler" />
+          <NavigationProperty Name="Ogrenci" Relationship="Self.FK_Ogrenci_Mufredat" FromRole="Mufredat" ToRole="Ogrenci" />
+        </EntityType>
+        <EntityType Name="MufredatDersler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MufredatID" Type="Int32" Nullable="false" />
+          <Property Name="DersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dersler" Relationship="Self.FK_MufredatDersler_Dersler" FromRole="MufredatDersler" ToRole="Dersler" />
+          <NavigationProperty Name="Mufredat" Relationship="Self.FK_MufredatDersler_Mufredat" FromRole="MufredatDersler" ToRole="Mufredat" />
+        </EntityType>
+        <EntityType Name="Ogrenci">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OgrenciNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="KimlikID" Type="Int32" Nullable="false" />
+          <Property Name="MufredatID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DersKayit" Relationship="Self.FK_DersKayit_Ogrenci" FromRole="Ogrenci" ToRole="DersKayit" />
+          <NavigationProperty Name="Kimlik" Relationship="Self.FK_Ogrenci_Kimlik" FromRole="Ogrenci" ToRole="Kimlik" />
+          <NavigationProperty Name="Mufredat" Relationship="Self.FK_Ogrenci_Mufredat" FromRole="Ogrenci" ToRole="Mufredat" />
+        </EntityType>
+        <Association Name="FK_DersKayit_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="1" />
+          <End Role="DersKayit" Type="Self.DersKayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DersKayit">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DersKayit_Ogrenci">
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="1" />
+          <End Role="DersKayit" Type="Self.DersKayit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogrenci">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DersKayit">
+              <PropertyRef Name="OgrenciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MufredatDersler_Dersler">
+          <End Role="Dersler" Type="Self.Dersler" Multiplicity="1" />
+          <End Role="MufredatDersler" Type="Self.MufredatDersler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dersler">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MufredatDersler">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kimlik_Iletisim">
+          <End Role="Iletisim" Type="Self.Iletisim" Multiplicity="1" />
+          <End Role="Kimlik" Type="Self.Kimlik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iletisim">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Kimlik">
+              <PropertyRef Name="IletisimID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kullanicilar_Kimlik">
+          <End Role="Kimlik" Type="Self.Kimlik" Multiplicity="1" />
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kimlik">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Kullanicilar">
+              <PropertyRef Name="KimlikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogrenci_Kimlik">
+          <End Role="Kimlik" Type="Self.Kimlik" Multiplicity="1" />
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kimlik">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ogrenci">
+              <PropertyRef Name="KimlikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MufredatDersler_Mufredat">
+          <End Role="Mufredat" Type="Self.Mufredat" Multiplicity="1" />
+          <End Role="MufredatDersler" Type="Self.MufredatDersler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mufredat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MufredatDersler">
+              <PropertyRef Name="MufredatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ogrenci_Mufredat">
+          <End Role="Mufredat" Type="Self.Mufredat" Multiplicity="1" />
+          <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mufredat">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Ogrenci">
+              <PropertyRef Name="MufredatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OBSDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DersKayit" EntityType="Self.DersKayit" />
+          <EntitySet Name="Dersler" EntityType="Self.Dersler" />
+          <EntitySet Name="Iletisim" EntityType="Self.Iletisim" />
+          <EntitySet Name="Kimlik" EntityType="Self.Kimlik" />
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" />
+          <EntitySet Name="Mufredat" EntityType="Self.Mufredat" />
+          <EntitySet Name="MufredatDersler" EntityType="Self.MufredatDersler" />
+          <EntitySet Name="Ogrenci" EntityType="Self.Ogrenci" />
+          <AssociationSet Name="FK_DersKayit_Dersler" Association="Self.FK_DersKayit_Dersler">
+            <End Role="Dersler" EntitySet="Dersler" />
+            <End Role="DersKayit" EntitySet="DersKayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DersKayit_Ogrenci" Association="Self.FK_DersKayit_Ogrenci">
+            <End Role="Ogrenci" EntitySet="Ogrenci" />
+            <End Role="DersKayit" EntitySet="DersKayit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MufredatDersler_Dersler" Association="Self.FK_MufredatDersler_Dersler">
+            <End Role="Dersler" EntitySet="Dersler" />
+            <End Role="MufredatDersler" EntitySet="MufredatDersler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kimlik_Iletisim" Association="Self.FK_Kimlik_Iletisim">
+            <End Role="Iletisim" EntitySet="Iletisim" />
+            <End Role="Kimlik" EntitySet="Kimlik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kullanicilar_Kimlik" Association="Self.FK_Kullanicilar_Kimlik">
+            <End Role="Kimlik" EntitySet="Kimlik" />
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogrenci_Kimlik" Association="Self.FK_Ogrenci_Kimlik">
+            <End Role="Kimlik" EntitySet="Kimlik" />
+            <End Role="Ogrenci" EntitySet="Ogrenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MufredatDersler_Mufredat" Association="Self.FK_MufredatDersler_Mufredat">
+            <End Role="Mufredat" EntitySet="Mufredat" />
+            <End Role="MufredatDersler" EntitySet="MufredatDersler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ogrenci_Mufredat" Association="Self.FK_Ogrenci_Mufredat">
+            <End Role="Mufredat" EntitySet="Mufredat" />
+            <End Role="Ogrenci" EntitySet="Ogrenci" />
+          </AssociationSet>
+          <EntitySet Name="Bolumler" EntityType="Model.Bolumler" />
+          <EntitySet Name="Fakulteler" EntityType="Model.Fakulteler" />
+        </EntityContainer>
+        <EntityType Name="Bolumler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FakulteNo" Type="Int32" Nullable="false" />
+          <Property Name="BolumNo" Type="Int32" Nullable="false" />
+          <Property Name="BolumKodu" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="BolumAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AktifPasif" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fakulteler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FakulteNo" Type="Byte" Nullable="false" />
+          <Property Name="FakulteAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AktifPasif" Type="Byte" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="OBSDbEntities">
+          <EntitySetMapping Name="DersKayit">
+            <EntityTypeMapping TypeName="Model.DersKayit">
+              <MappingFragment StoreEntitySet="DersKayit">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OgrenciID" ColumnName="OgrenciID" />
+                <ScalarProperty Name="DersID" ColumnName="DersID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dersler">
+            <EntityTypeMapping TypeName="Model.Dersler">
+              <MappingFragment StoreEntitySet="Dersler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DersKodu" ColumnName="DersKodu" />
+                <ScalarProperty Name="DersAdi" ColumnName="DersAdi" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="Kredi" ColumnName="Kredi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Iletisim">
+            <EntityTypeMapping TypeName="Model.Iletisim">
+              <MappingFragment StoreEntitySet="Iletisim">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Il" ColumnName="Il" />
+                <ScalarProperty Name="Ilce" ColumnName="Ilce" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="GSM" ColumnName="GSM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kimlik">
+            <EntityTypeMapping TypeName="Model.Kimlik">
+              <MappingFragment StoreEntitySet="Kimlik">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TcNo" ColumnName="TcNo" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="DogumYeri" ColumnName="DogumYeri" />
+                <ScalarProperty Name="DogumTarihi" ColumnName="DogumTarihi" />
+                <ScalarProperty Name="IletisimID" ColumnName="IletisimID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanicilar">
+            <EntityTypeMapping TypeName="Model.Kullanicilar">
+              <MappingFragment StoreEntitySet="Kullanicilar">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Tur" ColumnName="Tur" />
+                <ScalarProperty Name="KimlikID" ColumnName="KimlikID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mufredat">
+            <EntityTypeMapping TypeName="Model.Mufredat">
+              <MappingFragment StoreEntitySet="Mufredat">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MufredatAdi" ColumnName="MufredatAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MufredatDersler">
+            <EntityTypeMapping TypeName="Model.MufredatDersler">
+              <MappingFragment StoreEntitySet="MufredatDersler">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MufredatID" ColumnName="MufredatID" />
+                <ScalarProperty Name="DersID" ColumnName="DersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ogrenci">
+            <EntityTypeMapping TypeName="Model.Ogrenci">
+              <MappingFragment StoreEntitySet="Ogrenci">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OgrenciNo" ColumnName="OgrenciNo" />
+                <ScalarProperty Name="KimlikID" ColumnName="KimlikID" />
+                <ScalarProperty Name="MufredatID" ColumnName="MufredatID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bolumler">
+            <EntityTypeMapping TypeName="Model.Bolumler">
+              <MappingFragment StoreEntitySet="Bolumler">
+                <ScalarProperty Name="AktifPasif" ColumnName="AktifPasif" />
+                <ScalarProperty Name="BolumAd" ColumnName="BolumAd" />
+                <ScalarProperty Name="BolumKodu" ColumnName="BolumKodu" />
+                <ScalarProperty Name="BolumNo" ColumnName="BolumNo" />
+                <ScalarProperty Name="FakulteNo" ColumnName="FakulteNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fakulteler">
+            <EntityTypeMapping TypeName="Model.Fakulteler">
+              <MappingFragment StoreEntitySet="Fakulteler">
+                <ScalarProperty Name="AktifPasif" ColumnName="AktifPasif" />
+                <ScalarProperty Name="FakulteAdi" ColumnName="FakulteAdi" />
+                <ScalarProperty Name="FakulteNo" ColumnName="FakulteNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
