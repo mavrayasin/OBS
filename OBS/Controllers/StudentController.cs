@@ -38,6 +38,8 @@ namespace OBS.Controllers
             var ilet = ent.Kimlik.Where(x => x.ID == u.KimlikID).ToList();
             return View(ilet);
         }
+
+        #region öğrenci iletişim bilgilerini güncelleme aksiyonu
         public ActionResult UpdateIletisim(int IletisimID)
         {
             var iletValue = ent.Iletisim.Where(x => x.ID == IletisimID).FirstOrDefault();
@@ -57,6 +59,9 @@ namespace OBS.Controllers
             ent.SaveChanges();
             return RedirectToAction("IletisimInfo");
         }
+        #endregion
+
+        #region Öğrenci Ders Kayıt Aksiyonları
         public ActionResult DersKayit()
         {
             Kullanicilar u = Session["kullBilgi"] as Kullanicilar;
@@ -71,13 +76,13 @@ namespace OBS.Controllers
         {
             Kullanicilar u = Session["kullBilgi"] as Kullanicilar;
             DersKayit dersKayit = new DersKayit();
-            bool derskayitlimi = true;
+           
             var ogrid = ent.Ogrenci.Where(x => x.KimlikID == u.KimlikID).Select(x => x.ID).FirstOrDefault();
 
             var dk = ent.DersKayit.Where(x => x.DersID == DersID && x.OgrenciID == ogrid).FirstOrDefault();
             ViewBag.DersKayitliMi = 0;
             if (dk == null) {
-            derskayitlimi = false;
+           
             dersKayit.OgrenciID = ogrid;
             dersKayit.DersID = DersID;
             dersKayit.CreateDate = DateTime.Now;
@@ -106,5 +111,6 @@ namespace OBS.Controllers
             ent.DersKayit.Remove(kayitliders);
             ent.SaveChanges();
         }
+        #endregion
     }
 }

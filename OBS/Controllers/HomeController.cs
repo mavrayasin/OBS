@@ -22,13 +22,13 @@ namespace OBS.Controllers
         {
             return View();
         }
-
+        //Admin girişi ve öğrenci girişi burdan olup kullanıcıların  Kullanıcı Adi = ad.soyad // Şifre = tcno olarak ayarlandı.
         [HttpPost]
         public ActionResult Login(string username, string pass)
         {
             if (username != "" && pass != "")
             {
-                string Sifre=PasswordOperations.EncryptString("", pass);
+                string Sifre=PasswordOperations.EncryptString("", pass); //Hashlenen şifre çözülerek giriş yapılıyor.
                 Kullanicilar u = ent.Kullanicilar.Where(x => x.KullaniciAdi == username && x.Sifre == Sifre).FirstOrDefault();
        
                 if (u != null)
@@ -51,9 +51,6 @@ namespace OBS.Controllers
                     //kullancı bilgileri yanlış hatası verilebilir .
                 }
             }
-
-
-
             return View();
         }
     }

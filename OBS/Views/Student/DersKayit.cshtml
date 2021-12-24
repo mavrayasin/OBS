@@ -14,7 +14,7 @@
                 <th style="width: 10px">ID</th>
                 <th>Ders Adı</th>
                 <th>Ders Kodu</th>
-                <th>Durum</th>
+                <th>Ders Durum</th>
                 <th>Kredi</th>
 
                 <th></th>
@@ -22,14 +22,21 @@
             </tr>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.ID</td>
-                    <td>@item.DersAdi</td>
-                    <td>@item.DersKodu</td>
-                    <td>@item.Durum</td>
-                    <td>@item.Kredi</td>
-                    <td><button class="btn btn-block btn-warning btn-xs" onclick="InsertDersKaydi('@item.ID')">Ders Ekle</button></td>
-                </tr>
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.DersAdi</td>
+            <td>@item.DersKodu</td>
+            @if (item.Durum == true)
+            {
+                <td>Aktif</td>
+            }
+            else
+            {
+                <td>Pasif</td>
+            }
+            <td>@item.Kredi</td>
+            <td><button class="btn btn-block btn-warning btn-xs" onclick="InsertDersKaydi('@item.ID')">Ders Ekle</button></td>
+        </tr>
             }
 
 
@@ -37,7 +44,7 @@
         </table>
     </div>
 </div>
-<div>@{Html.RenderAction("StudentCources", "Student");}</div>
+<div>@{Html.RenderAction("OgrenciDers", "Student");}</div>
 <script>
 
     function InsertDersKaydi(DersID) {

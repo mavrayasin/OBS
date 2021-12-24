@@ -133,7 +133,7 @@ namespace OBS.Controllers
             {
                 ent.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception )
             {
 
                 throw;
@@ -150,7 +150,7 @@ namespace OBS.Controllers
 
         #endregion
 
-        #region Öğrenci Ekleme Güncelleme İşlemleri
+        #region Öğrenci Ekleme, Listeleme ve Güncelleme İşlemleri
         public ActionResult AddStudent()
         {
             OgrenciDetay ogrenciDetay = new OgrenciDetay();
@@ -208,15 +208,15 @@ namespace OBS.Controllers
                     {
                         ent.SaveChanges();
                         var sonKimlikID = kimlik.ID;
-                        ogrenci.OgrenciNo = DateTime.Now.Year.ToString() + model.BolumID.ToString() + model.OgrGirisNo.ToString();
+                        ogrenci.OgrenciNo = DateTime.Now.Year.ToString() + model.BolumID.ToString() + model.OgrGirisNo.ToString(); // öğrenci no alanı bolumID ve giriş sırası birleştirilerek yapıldı.
                         ogrenci.MufredatID = model.MufredatID;
                         ogrenci.KimlikID = sonKimlikID;
                         ent.Ogrenci.Add(ogrenci);
                         try
                         {
                             ent.SaveChanges();
-                            kullanici.KullaniciAdi = kimlik.Ad + "." + kimlik.Soyad;
-                            kullanici.Sifre = PasswordOperations.EncryptString("",kimlik.TcNo);
+                            kullanici.KullaniciAdi = kimlik.Ad + "." + kimlik.Soyad; //kullanıcı Adı ad.soyad şeklinde otomatik kayıt atılıyor.
+                            kullanici.Sifre = PasswordOperations.EncryptString("",kimlik.TcNo); //şifre tcno olarak atandı.
                             kullanici.KimlikID = sonKimlikID;
                             kullanici.Tur = true;
                             try
@@ -230,24 +230,24 @@ namespace OBS.Controllers
                                 throw;
                             }
                         }
-                        catch (Exception e)
+                        catch (Exception )
                         {
 
                             throw;
                         }
                     }
-                    catch (Exception)
+                    catch (Exception )
                     {
 
                         throw;
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
 
             }
@@ -323,7 +323,7 @@ namespace OBS.Controllers
             {
                 ent.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;
@@ -376,13 +376,13 @@ namespace OBS.Controllers
         }
 
         #endregion
-        //public ActionResult DersDetay(int ogrid)
-        //{
-           
-        //    var kayitlidersler = ent.DersKayit.Where(x => x.OgrenciID == ogrid).Select(x => x.DersID);
-        //    var dersler = ent.Dersler.Where(x => kayitlidersler.Contains(x.ID)).ToList();
-        //    return View(dersler);
-        //}
+        public ActionResult DersDetay(int ogrid)
+        {
+
+            var kayitlidersler = ent.DersKayit.Where(x => x.OgrenciID == ogrid).Select(x => x.DersID);
+            var dersler = ent.Dersler.Where(x => kayitlidersler.Contains(x.ID)).ToList();
+            return View(dersler);
+        }
 
 
 

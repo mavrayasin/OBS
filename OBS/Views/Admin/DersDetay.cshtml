@@ -1,0 +1,48 @@
+﻿@model List<OBS.Models.Dersler>
+@{
+    ViewBag.Title = "DersDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Öğrencinin Ders Kaydı Yaptığı Dersler</h3>
+    </div>
+
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tr>
+                <th style="width: 10px">ID</th>
+                <th>Ders Adı</th>
+                <th>Ders Kodu</th>
+                <th>Ders Durum</th>
+                <th>Kredi</th>
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.DersAdi</td>
+                    <td>@item.DersKodu</td>
+                    @if (item.Durum == true)
+                    {
+                        <td>Aktif</td>
+                    }
+                    else
+                    {
+                        <td>Pasif</td>
+                    }
+                    <td>@item.Kredi</td>
+                    
+                </tr>
+            }
+
+
+
+        </table>
+    </div>
+</div>
+
+

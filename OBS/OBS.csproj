@@ -1211,6 +1211,7 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\UpdateIletisim.cshtml" />
     <Content Include="Views\Student\OgrenciDers.cshtml" />
+    <Content Include="Views\Admin\DersDetay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
