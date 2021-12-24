@@ -1,0 +1,59 @@
+﻿@model List<OBS.Models.Dersler>
+@{
+    ViewBag.Title = "DersKayit";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Müfredat Aktif Dersler</h3>
+    </div>
+
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tr>
+                <th style="width: 10px">ID</th>
+                <th>Ders Adı</th>
+                <th>Ders Kodu</th>
+                <th>Durum</th>
+                <th>Kredi</th>
+
+                <th></th>
+
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.DersAdi</td>
+                    <td>@item.DersKodu</td>
+                    <td>@item.Durum</td>
+                    <td>@item.Kredi</td>
+                    <td><button class="btn btn-block btn-warning btn-xs" onclick="InsertDersKaydi('@item.ID')">Ders Ekle</button></td>
+                </tr>
+            }
+
+
+
+        </table>
+    </div>
+</div>
+<div>@{Html.RenderAction("StudentCources", "Student");}</div>
+<script>
+
+    function InsertDersKaydi(DersID) {
+        $.ajax({
+            url: "/Student/DersKaydiYap",
+            data: { DersID: DersID },
+            type: "GET",
+            success: function (result) {
+                if (result == 1) {
+                    alert("Ders Kaydı Mevcut")
+                }
+                else {
+                    alert("Ders Kaydı Yapıldı")
+                    window.location.reload();
+                }
+            },
+        });
+    }
+</script>

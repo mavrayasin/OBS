@@ -1,0 +1,37 @@
+﻿@model OBS.Models.Iletisim
+@{
+    ViewBag.Title = "UpdateIletisim";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<h2>UpdateIletisim</h2>
+
+@using (Html.BeginForm("UpdateIletisim", "Student", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.ID)
+<div class="form-group">
+
+    @Html.Label("Adres", new { @class = "col-md-2 control-label" })
+    @Html.TextBoxFor(model => model.Adres, new { @class = "col-md-3" })
+    <br />
+    <br />
+    @Html.Label("İl", new { @class = "col-md-2 control-label" })
+    @Html.TextBoxFor(model => model.Il, new { @class = "col-md-3" })
+    <br />
+    <br />
+    @Html.Label("İlçe", new { @class = "col-md-2 control-label" })
+    @Html.TextBoxFor(model => model.Ilce, new { @class = "col-md-3" })
+    <br />
+    <br />
+    @Html.Label("Email", new { @class = "col-md-2 control-label" })
+    @Html.TextBoxFor(model => model.Email, new { @class = "col-md-3" })
+    <br />
+    <br />
+    @Html.Label("Tel No", new { @class = "col-md-2 control-label" })
+    @Html.TextBoxFor(model => model.GSM, new { @class = "col-md-3" })
+    <br />
+    <br />
+
+    <button class="btn btn-success">Güncelle</button>
+</div>
+}
