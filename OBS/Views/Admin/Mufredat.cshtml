@@ -17,6 +17,7 @@
                 <th>Müfredat ADI</th>
                 <th></th>
                 <th></th>
+                <th></th>
             </tr>
             @foreach (var item in Model)
             {
@@ -25,6 +26,7 @@
                     <td>@item.MufredatAdi</td>
                     <td><button class="btn btn-block btn-warning btn-xs" style="width:150px; height:30px" onclick="MufredatUpdate(@item.ID)">Güncelle</button></td>
                     <td><button class="btn btn-block btn-info btn-xs" style="width:150px; height:30px" onclick="MufredatClone(@item.ID)">Müfredat Klonla</button></td>
+                    <td><button class="btn btn-block btn-danger btn-xs" style="width:150px; height:30px" onclick="MufredatDel(@item.ID)">Müfredat Sil</button></td>
                 </tr>
             }
 
@@ -66,10 +68,10 @@
         window.location.href = "/Admin/DuzenleMufredat?id=" + id;
 
     }
-    //function MufredatClone(id) {
-    //    window.location.href = "/Admin/MufredatClone?id=" + id;
+    function MufredatDel(id) {
+        window.location.href = "/Admin/SilMufredat?id=" + id;
 
-    //}
+    }
     function MufredatAdd() {
         window.location.href = "/Admin/EkleMufredat";
     }

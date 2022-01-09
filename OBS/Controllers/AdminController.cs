@@ -85,6 +85,21 @@ namespace OBS.Controllers
 
             return View();
         }
+
+        public ActionResult SilMufredat(int id)
+        {
+            var mufids = ent.MufredatDersler.Where(x => x.MufredatID == id).ToList();
+            foreach (var item in mufids)
+            {
+                ent.MufredatDersler.Remove(item);
+                ent.SaveChanges();
+            }
+            var muf = ent.Mufredat.Where(x => x.ID == id).FirstOrDefault();
+            ent.Mufredat.Remove(muf);
+            ent.SaveChanges();
+
+           return RedirectToAction("Mufredat");
+        }
         public ActionResult DuzenleMufredat(int? id)
         {
             var mufredatValue = ent.Mufredat.Where(x => x.ID == id).FirstOrDefault();
