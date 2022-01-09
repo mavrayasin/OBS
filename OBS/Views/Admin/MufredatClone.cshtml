@@ -1,0 +1,27 @@
+﻿
+@model OBS.Models.Mufredat
+@{
+    ViewBag.Title = "CloneMufreadat";
+    Layout = null;
+}
+
+<div class="box">
+    <h2>Müfredat Kopyalama sayfası</h2>
+    <br />
+    @using (Html.BeginForm("MufredatClone", "Admin", FormMethod.Post))
+    {
+        <div class="box-body">
+            <div class="form-group">
+                @Html.HiddenFor(model=>model.ID)
+                @Html.Label("Müfredat Adı")
+                @Html.TextBoxFor(model => model.MufredatAdi, new { @class = "form-control", placeholder = "Müfredat adı giriniz" })
+
+                <br />
+                <br />
+            </div>
+        </div>
+        <div class="box-footer">
+            <button class="btn btn-info">Ekle</button>
+        </div>
+    }
+</div>

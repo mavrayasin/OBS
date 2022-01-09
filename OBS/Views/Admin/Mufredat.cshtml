@@ -6,9 +6,6 @@
 }
 
 
-
-
-
 <div class="box">
     <div class="box-header with-border">
         <h3 class="box-title">Müfredatlar</h3>
@@ -19,19 +16,21 @@
                 <th style="width: 10px">ID</th>
                 <th>Müfredat ADI</th>
                 <th></th>
+                <th></th>
             </tr>
             @foreach (var item in Model)
             {
                 <tr>
                     <td>@item.ID</td>
                     <td>@item.MufredatAdi</td>
-                    <td><button class="btn btn-block btn-warning btn-xs" style="width:150px; height:30px"onclick="MufredatUpdate(@item.ID)">Güncelle</button></td>
-
+                    <td><button class="btn btn-block btn-warning btn-xs" style="width:150px; height:30px" onclick="MufredatUpdate(@item.ID)">Güncelle</button></td>
+                    <td><button class="btn btn-block btn-info btn-xs" style="width:150px; height:30px" onclick="MufredatClone(@item.ID)">Müfredat Klonla</button></td>
                 </tr>
             }
 
             @*<a href="/Admin/EkleMufredat">Yeni Müfredat Ekle</a>*@
-            <button class="btn btn-block btn-success btn-xs"style="width:150px; height:30px" onclick="MufredatAdd()">Yeni Müfredat Ekle</button>
+            <button class="btn btn-block btn-success btn-xs" style="width:150px; height:30px" onclick="MufredatAdd()">Yeni Müfredat Ekle</button>
+
         </table>
     </div><!-- /.box-body -->
     <div class="box-footer clearfix">
@@ -44,13 +43,47 @@
         </ul>
     </div>
 </div><!-- /.box -->
+
+<div class="modal fade" id="modalMufClo" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+       
+            </div>
+       
+                <div class="modal-body" id="modalMufCloBody">
+                   
+                </div>
+             
+          
+        </div>
+    </div>
+</div>
 <script>
 
     function MufredatUpdate(id) {
         window.location.href = "/Admin/DuzenleMufredat?id=" + id;
 
     }
+    //function MufredatClone(id) {
+    //    window.location.href = "/Admin/MufredatClone?id=" + id;
+
+    //}
     function MufredatAdd() {
         window.location.href = "/Admin/EkleMufredat";
+    }
+</script>
+<script>
+    function MufredatClone(id) {
+        $.ajax({
+            url: "/Admin/MufredatClone",
+            data: { id: id },
+            type: "GET",
+            success: function (data) {
+                $("#modalMufClo").modal('show');
+                $("#modalMufCloBody").html(data);
+            },
+        });
     }
 </script>

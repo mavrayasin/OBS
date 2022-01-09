@@ -1,7 +1,9 @@
 ﻿using OBS.Models;
 using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -96,6 +98,39 @@ namespace OBS.Controllers
             ent.SaveChanges();
             return RedirectToAction("Mufredat");
         }
+        
+        public ActionResult MufredatClone(int id)
+        {
+            Mufredat mufredat = new Mufredat();
+            mufredat.ID = id;
+            return View(mufredat);
+        }
+        [HttpPost]
+        public ActionResult MufredatClone(Mufredat model)
+        {
+            var dersids = ent.MufredatDersler.Where(x => x.MufredatID == model.ID).Select(x=>x.DersID).ToList();
+            Mufredat mufredat = new Mufredat()
+            {
+                MufredatAdi = model.MufredatAdi
+            };
+            ent.Mufredat.Add(model);
+            ent.SaveChanges();
+            int mufredatID = model.ID;
+
+            List<MufredatDersler> lst = new List<MufredatDersler>();
+
+            foreach(var item in dersids)
+            {
+                MufredatDersler temp = new MufredatDersler();
+                temp.MufredatID = mufredatID;
+                temp.DersID = item;
+                ent.MufredatDersler.Add(temp);
+                ent.SaveChanges();
+            }
+            //ent.MufredatDersler.AddRange(lst);
+
+            return RedirectToAction("MufredatDersList");
+        }
         #endregion
 
         #region Müfredat Ders İlişkilendirme
@@ -138,7 +173,7 @@ namespace OBS.Controllers
 
                 throw;
             }
-            return RedirectToAction("MufredatDers");
+            return RedirectToAction("MufredatDersList");
         }
 
         public ActionResult MufredatDersList()
@@ -378,13 +413,10 @@ namespace OBS.Controllers
         #endregion
         public ActionResult DersDetay(int ogrid)
         {
-
             var kayitlidersler = ent.DersKayit.Where(x => x.OgrenciID == ogrid).Select(x => x.DersID);
             var dersler = ent.Dersler.Where(x => kayitlidersler.Contains(x.ID)).ToList();
             return View(dersler);
         }
-
-
 
     }
 }

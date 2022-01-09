@@ -21,38 +21,39 @@
                 <th>Ders Adı</th>
                 <th>Ders Kodu</th>
                 <th>Ders Durum</th>
-             
-            
+
+
                 <th></th>
             </tr>
             @foreach (var item in Model)
             {
-                if (item.Dersler.Durum == true) { 
-        <tr>
-            <td>@item.ID</td>
-            <td>@item.Mufredat.ID</td>
-            <td>@item.Mufredat.MufredatAdi</td>
-            <td>@item.Dersler.ID </td>
-            <td>@item.Dersler.DersAdi</td>
-            <td>@item.Dersler.DersKodu</td>
+                if (item.Dersler.Durum == true)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Mufredat.ID</td>
+                        <td>@item.Mufredat.MufredatAdi</td>
+                        <td>@item.Dersler.ID </td>
+                        <td>@item.Dersler.DersAdi</td>
+                        <td>@item.Dersler.DersKodu</td>
 
-            @if (item.Dersler.Durum == true)
-            {
-                <td>
-                    Aktif 
-                    @*@item.Dersler.Durum*@
-                </td>
-            }
+                        @if (item.Dersler.Durum == true)
+                        {
+                            <td>
+                                Aktif
+                                @*@item.Dersler.Durum*@
+                            </td>
+                        }
 
 
 
-                @*<td><button class="btn btn-block btn-warning btn-xs">Güncelle</button></td>*@
-            </tr>
+                        @*<td><button class="btn btn-block btn-warning btn-xs">Güncelle</button></td>*@
+                    </tr>
                 }
             }
 
 
-
+            <button class="btn btn-block btn-success btn-xs" style="width:150px; height:30px" onclick="MufredatDersAdd()">Müfredat Ders İlişkilendir</button>
         </table>
     </div><!-- /.box-body -->
     <div class="box-footer clearfix">
@@ -64,4 +65,10 @@
             <li><a href="#">&raquo;</a></li>
         </ul>
     </div>
-</div><!-- /.box
+</div>
+<script>
+    function MufredatDersAdd() {
+        window.location.href = "/Admin/MufredatDers";
+    }
+</script>
+        

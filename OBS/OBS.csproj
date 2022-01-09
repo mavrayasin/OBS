@@ -1212,6 +1212,7 @@
     <Content Include="Views\Student\UpdateIletisim.cshtml" />
     <Content Include="Views\Student\OgrenciDers.cshtml" />
     <Content Include="Views\Admin\DersDetay.cshtml" />
+    <Content Include="Views\Admin\MufredatClone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
